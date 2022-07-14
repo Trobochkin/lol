@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="container">
-    <h3>All users page</h3>
-    <p>Страница пользователей</p>
+    <h3>Пользователи</h3>
+    <button onclick="window.location.href = 'http://localhost:8080/lol_war_exploded/new';">Добавить пользователя</button>
 </div>
 <div class="container">
     <table class="table table-striped">
@@ -32,12 +32,12 @@
             <td th:text="${user.getId()}">id</td>
             <td th:text="${user.getName()}">name</td>
             <td th:text="${user.getAge()}">age</td>
-            <td><a class="btn btn-success" th:href="@{user-update/{id}(id=${user.getId()})}">edit</a></td>
-            <td><a class="btn btn-warning" th:href="@{user-delete/{id}(id=${user.getId()})}">delete</a></td>
+            <td><a class="btn btn-success" th:href="@{update/{id}(id=${user.getId()})}">edit</a></td>
+            <td><a class="btn btn-warning" th:href="@{delete/{id}(id=${user.getId()})}">delete</a></td>
         </tr>
         </tbody>
     </table>
-    <button onclick="window.location.href = 'http://localhost:8080/lol_war_exploded/new';">New user</button>
+
 </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package web.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 
 
@@ -11,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private String name;
 
     private int age;

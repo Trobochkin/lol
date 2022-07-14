@@ -24,40 +24,41 @@ public class UserController {
 
     @GetMapping(value = "/users")
     public String getUsers(Model model) {
-        //List<User> userList = userService.getAllUsers();
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Nata", 12));
-        userList.add(new User("Pot", 12));
-        userList.add(new User("Latoya", 12));
-        userList.add(new User("Kata", 12));
+        List<User> userList = userService.getAllUsers();
         model.addAttribute("users", userList);
         return "/users";
     }
 
     @GetMapping(value = "/new")
-    public String getNew(){
+    public String getNew(Model model) {
+        model.addAttribute("empty_user", new User());
         return "/new";
     }
 
-    @PostMapping()
-   public String addUser(@ModelAttribute("new_user") @Valid User new_user,
-                          BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "users";
-        userService.add(new_user);
+    @PostMapping(value = "/new_user")
+    public String addUser(@ModelAttribute("empty_user") @Valid User user) {
+        if (user.getName() == null || user.getAge() == 0) { return "redirect:/users"; }
+        userService.add(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/user-delete/{id}")
+    @GetMapping("/delete/{id}")
     public String removeUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
         return "redirect:/users";
     }
 
-    @GetMapping("user-update/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model, Model model2) {
+    @GetMapping("/update/{id}")
+    public String getChange(@PathVariable("id") Long id, Model model) {
         User user = userService.getUser(id);
-        model.addAttribute("new_user", user);
-        model2.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("process_user", user);
+        return "/update";
+    }
+
+    @PostMapping(value = "/update_execute")
+    public String changeUser(@ModelAttribute("process_user") @Valid User user) {
+        if (user.getName() == null || user.getAge() == 0) { return "redirect:/users"; }
+        userService.update(user);
         return "redirect:/users";
     }
 }

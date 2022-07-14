@@ -13,17 +13,18 @@
 </head>
 <body>
 <div class="container">
-    <h3>Добавить пользователя</h3>
+    <h3>Изменить пользователя</h3>
 </div>
 <br>
 <div class="container">
-    <form th:method="POST" th:action="@{/new_user}" th:object="${empty_user}">
+    <form th:method="POST" th:action="@{/update_execute}" th:object="${process_user}">
         <div>
             <table class="table table-striped">
                 <tr>
+                    <th><input type="text" th:field="*{id}" id="id" placeholder="Id"/></th>
                     <th><input type="text" th:field="*{name}" id="name" placeholder="Name"/></th>
                     <th><input type="text" th:field="*{age}" id="age" placeholder="Age"/></th>
-                    <th><input type="submit" value="Создать"/></th>
+                    <th><input type="submit" value="Изменить"/></th>
                     <th><input type="button" onclick="window.location.href = 'http://localhost:8080/lol_war_exploded/users';" value="Назад"/></input></th>
                 </tr>
             </table>
